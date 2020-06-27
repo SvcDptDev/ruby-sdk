@@ -18,8 +18,11 @@ module Velocity
       @identity_token
     end
     
-    SIGNON_URL = "https://api.cert.nabcommerce.com/REST/2.0.18/SvcInfo/token"
-
+    SIGNON_URL = if Rails.env == "production"
+                   "https://api.nabcommerce.com/REST/2.0.18/SvcInfo/token"
+                 else
+                   "https://api.cert.nabcommerce.com/REST/2.0.18/SvcInfo/token"
+                 end
    # ----------------------------> signOn Method  <----------------------------- # 
     
    # "signOn" method for making GET request.

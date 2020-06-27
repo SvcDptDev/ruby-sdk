@@ -50,8 +50,16 @@ module Velocity
 
   # paths for according to request needed.
 
-    URL = "https://api.cert.nabcommerce.com/REST/2.0.18/Txn/"
-    QTD_URL = "https://api.cert.nabcommerce.com/REST/2.0.18/DataServices/TMS/transactionsDetail"
+    URL = if Rails.env == "production"
+            "https://api.nabcommerce.com/REST/2.0.18/Txn/"
+          else
+            "https://api.cert.nabcommerce.com/REST/2.0.18/Txn/"
+          end
+    QTD_URL = if Rails.env == "production"
+                "https://api.nabcommerce.com/REST/2.0.18/DataServices/TMS/transactionsDetail"
+              else
+                "https://api.cert.nabcommerce.com/REST/2.0.18/DataServices/TMS/transactionsDetail"
+              end
 
   # ----------------------------> verify Method  <----------------------------- #
 
