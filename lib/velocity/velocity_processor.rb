@@ -302,7 +302,14 @@ module Velocity
     def processError?(response_xml)
       @response = response_xml
       # p @response
-      msg = REXML::Document.new("<ClientResponse>" + @response.body + "</ClientResponse>")
+
+      # Remove any ampersands
+      response_body = @response.body.gsub(
+        /&(?!(?:amp|lt|gt|quot|apos);)/, "&amp;"
+      )
+
+      # Parse response
+      msg = REXML::Document.new("<ClientResponse>" + response_body + "</ClientResponse>")
       if @response.code == 200 || @response.code == 201
         # p "200200200200"
         error = REXML::XPath.first(
